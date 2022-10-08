@@ -25,6 +25,7 @@ public:
                                                 const uint8_t* data_v,
                                                 int stride_v);
 
+    static void SetBlack(I420Buffer *buffer);
     static base::scoped_refptr<I420Buffer> Rotate(const I420BufferInterface &src,VideoRotation rotation);
     void InitializeData();
 
@@ -43,6 +44,11 @@ public:
     uint8_t* MutableDataU();
     uint8_t* MutableDataV();
 
+    void CropAndScaleFrom(const I420BufferInterface &src,int offset_x,int offset_y,int crop_width,int crop_height);
+
+    void CropAndScaleFrom(const I420BufferInterface &src);
+
+    void ScaleFrom(const I420BufferInterface& src);
 protected:
     I420Buffer(int width,int height);
     I420Buffer(int width,int height,int stride_y,int stride_u,int stride_v);
