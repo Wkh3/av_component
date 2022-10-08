@@ -89,4 +89,24 @@ uint8_t* I420Buffer::MutableDataV(){
     return const_cast<uint8_t*>(DataV());
 }
 
+base::scoped_refptr<I420Buffer> I420Buffer::Copy(const I420BufferInterface &buffer){
+
+
+}
+base::scoped_refptr<I420Buffer> I420Buffer::Copy(int width,
+                                     int height,
+                                     const uint8_t *data_y,
+                                     int stride_y,
+                                     const uint8_t* data_u,
+                                     int stride_u,
+                                     const uint8_t* data_v,
+                                     int stride_v){
+
+
+}
+
+base::scoped_refptr<I420Buffer> I420Buffer::Rotate(const I420BufferInterface &src,VideoRotation rotation){
+
+}
+
 }

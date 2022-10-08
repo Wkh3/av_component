@@ -1,6 +1,6 @@
 #pragma once
-#include "video_frame_buffer.hpp"
-#include "video_rotation.hpp"
+#include "video/video_frame_buffer.hpp"
+#include "video/video_rotation.hpp"
 #include "base/scoped_refptr.hpp"
 #include "base/aligned_malloc.hpp"
 #include <memory>
@@ -16,7 +16,16 @@ public:
                                                   int stride_v);
 
     static base::scoped_refptr<I420Buffer> Copy(const I420BufferInterface &buffer);
+    static base::scoped_refptr<I420Buffer> Copy(int width,
+                                                int height,
+                                                const uint8_t *data_y,
+                                                int stride_y,
+                                                const uint8_t* data_u,
+                                                int stride_u,
+                                                const uint8_t* data_v,
+                                                int stride_v);
 
+    static base::scoped_refptr<I420Buffer> Rotate(const I420BufferInterface &src,VideoRotation rotation);
     void InitializeData();
 
     int width() const override;
