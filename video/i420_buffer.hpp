@@ -1,6 +1,6 @@
 #pragma once
-#include "video/video_frame_buffer.hpp"
-#include "video/video_rotation.hpp"
+#include "video_frame_buffer.hpp"
+#include "video_rotation.hpp"
 #include "base/scoped_refptr.hpp"
 #include "base/aligned_malloc.hpp"
 #include <memory>

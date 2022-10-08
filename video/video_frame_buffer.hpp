@@ -2,6 +2,7 @@
 #include "base/scoped_refptr.hpp"
 #include "base/ref_count.hpp"
 #include <utility>
+#include <stdint.h>
 namespace component::video{
 
 class I420BufferInterface;

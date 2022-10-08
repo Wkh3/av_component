@@ -16,7 +16,7 @@ I420Buffer::I420Buffer(int width,int height,int stride_y,int stride_u,int stride
                                                                                       height_(height),
                                                                                       stride_y_(stride_y),
                                                                                       stride_u_(stride_u),
-                                                                                      stride_v_(stride_v_),
+                                                                                      stride_v_(stride_v),
                                                                                       data_(base::AlignedMalloc<uint8_t>(
                                                                                         I420DataSize(height,stride_y,stride_u,stride_v),
                                                                                         kBufferAlignment
