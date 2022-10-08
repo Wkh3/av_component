@@ -5,8 +5,8 @@ include(FetchContent)
 # libyuv
 FetchContent_Declare(
     libyuv
-    GIT_REPOSITORY https://chromium.googlesource.com/libyuv/libyuv
-    GIT_TAG        b179f1847a7cc17957eab399610cb9ef163bb715
+    GIT_REPOSITORY https://github.com/lemenkov/libyuv.git
+    GIT_TAG main
 )
 
 FetchContent_MakeAvailable(libyuv)
@@ -18,5 +18,11 @@ FetchContent_Declare(
   GIT_TAG release-1.11.0
 )
 
-
 FetchContent_MakeAvailable(googletest)
+
+include(CMakePrintHelpers)
+cmake_print_properties(TARGETS gtest
+                        PROPERTIES TYPE SOURCE_DIR)
+cmake_print_properties(TARGETS yuv_shared
+                        PROPERTIES TYPE SOURCE_DIR)
+
