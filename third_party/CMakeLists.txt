@@ -1,15 +1,16 @@
 cmake_minimum_required(VERSION 3.14)
 
 include(FetchContent)
+include(custom_fetch)
 
 # libyuv
-FetchContent_Declare(
+
+Custom_Fetch(
     libyuv
-    GIT_REPOSITORY https://github.com/lemenkov/libyuv.git
-    GIT_TAG main
+    https://github.com/lemenkov/libyuv.git
+    main
 )
 
-FetchContent_MakeAvailable(libyuv)
 
 # gtest
 FetchContent_Declare(
@@ -20,9 +21,4 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-include(CMakePrintHelpers)
-cmake_print_properties(TARGETS gtest
-                        PROPERTIES TYPE SOURCE_DIR)
-cmake_print_properties(TARGETS yuv_shared
-                        PROPERTIES TYPE SOURCE_DIR)
 
