@@ -44,8 +44,6 @@ public:
     }
 
     const I420ABufferInterface* GetI420A() const;
-    const I444BufferInterface*  GetI444() const;
-    const I010BufferInterface*  GetI010() const;
     const NV12BufferInterface*  GetNV12() const;
 protected:
     ~VideoFrameBuffer() override{}
