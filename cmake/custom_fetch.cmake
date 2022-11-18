@@ -1,5 +1,3 @@
-
-
 function(Custom_Fetch repository url tag)
     FetchContent_Declare(
         ${repository}
