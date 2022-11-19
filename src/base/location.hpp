@@ -8,11 +8,11 @@ public:
 
     Location(const char *fn,const char* file,int line) : fn_(fn),file_(file),line_(line){
     }
-    const char *function_name() const {
+    std::string_view function_name() const {
         return fn_;
     }
     
-    const char *file_name() const {
+    std::string_view file_name() const {
         return file_;
     }
 
@@ -22,9 +22,9 @@ public:
 
     std::string ToString() const;
 private:
-    const char *fn_   = "UnKnown";
-    const char *file_ = "UnKnown";
-    int         line_ = -1;
+    std::string_view fn_   = "UnKnown";
+    std::string_view file_ = "UnKnown";
+    int              line_ = -1;
 };
 
 #define FROM_HERE FROM_HERE_WITH_FUNCTION(__FUNCTION__)

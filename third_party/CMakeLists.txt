@@ -19,6 +19,9 @@ FetchContent_Declare(
   GIT_TAG release-1.11.0
 )
 
-FetchContent_MakeAvailable(googletest)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+option(INSTALL_GMOCK "Install GMock" OFF)
+option(INSTALL_GTEST "Install GTest" OFF)
 
+FetchContent_MakeAvailable(googletest)
 
