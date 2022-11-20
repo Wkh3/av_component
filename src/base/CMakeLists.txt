@@ -10,4 +10,4 @@ target_include_directories(base_component PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 include(testing)
 
-AddTests(${error_tests})
+AddTests(${error_tests} base_component)

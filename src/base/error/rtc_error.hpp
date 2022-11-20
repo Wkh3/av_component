@@ -7,22 +7,28 @@ namespace component::base {
 
 class RTCError : public Error<RTCError> {
 public:
-    enum Code {
-        kNone
+    enum Code : int {
+        kRTCError = 100,
     };
-    RTCError(Code code);
+    using Error::Error;
 
-    RTCError(Code code, std::string reason);
+    RTCError(int code, std::string reason, Location location);
+
+    RTCError(const RTCError& rhs);
+
+    RTCError(RTCError&& rhs);
+
+    RTCError& operator=(RTCError rhs);
 
     bool HasError() const;
-
-    bool operator=(RTCError::Code code);
 
     void set_reason(std::string reason);
 
     const std::string& reason() const;
 
-    Code error_code() const;
+    std::string Detail() const;
+
+    void swap(RTCError& rhs);
 
 public:
     static RTCError Ok();
@@ -30,10 +36,7 @@ public:
 protected:
     std::string_view Message() const;
 
-    void Swap(RTCError& rhs);
-
 private:
-    Code code_;
     std::string reason_;
 };
 
