@@ -1,14 +1,19 @@
 #pragma once
+#include <absl/log/log.h>
 #include <absl/time/clock.h>
 #include <absl/time/time.h>
-#include <absl/log/log.h>
+
+#include <type_traits>
+#include <iostream>
 #include <atomic>
 #include <base/location.hpp>
 #include <chrono>
 #include <condition_variable>
 #include <functional>
+#include <future>
 #include <mutex>
 #include <thread>
+#include <utility>
 
 namespace component::base {
 
@@ -23,7 +28,6 @@ public:
             : location(std::move(location)),
               task(std::move(task)),
               time(time) {
-        
     }
 
     QueuedTask(const QueuedTask& rhs)
@@ -42,7 +46,10 @@ public:
         auto start_time = absl::Now();
         task();
         auto duration = absl::Now() - start_time;
-        // spdlog::debug("task from {0} time {1} run {2} millseconds", location.ToString(), absl::FormatTime(time), absl::ToInt64Milliseconds(duration));
+
+        std::cout << "task from" << location
+                   << " time " << absl::FormatTime(time)
+                   << "run elapsed" << absl::ToInt64Milliseconds(duration) << " ms";
     }
 
     Location location;
@@ -50,7 +57,7 @@ public:
     Time time;
 };
 
-class Thread {
+class Thread final {
 public:
     Thread(std::string name = "");
 
@@ -59,7 +66,6 @@ public:
     const std::string& name() const {
         return name_;
     }
-
 
     bool IsRunning() const {
         return !exit_.load(std::memory_order_acquire);
@@ -71,7 +77,19 @@ public:
 
     bool PostAsyncTask(Location location, Task task);
 
-    bool PostSyncTask(Location location, Task task, absl::Duration wait_time = absl::Seconds(10));
+    template <typename Fn>
+    auto PostSyncTask(Location location, Fn &&task, absl::Duration wait_time = absl::Seconds(10)) {
+        auto event  = std::make_shared<std::promise<std::invoke_result<Fn>>>();
+        auto result = event->get_future();
+
+        PostAsyncTask(location, [wrapper_task = std::forward<Fn>(task), event]() {
+            event->set_value(wrapper_task());
+        });
+        CHECK()
+            << "task from" << location << "wait "
+            << absl::ToInt64Seconds(wait_time) << " s timeout,"
+            << "deadlock may occur!";
+    }
 
 private:
     void Run();

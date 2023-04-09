@@ -1,4 +1,5 @@
 #include <base/thread.hpp>
+#include <absl/log/check.h>
 #include <absl/synchronization/notification.h>
 
 #include <memory>
@@ -33,18 +34,12 @@ bool Thread::PostAsyncTask(Location location, Task task) {
     return true;
 }
 
-bool Thread::PostSyncTask(Location location, Task task,absl::Duration wait_time) {
-    auto event = std::make_shared<absl::Notification>();
 
-    PostAsyncTask(location,[wrapper_task = std::move(task),event](){
-        wrapper_task();
-        event->Notify();
-    });
+// T Thread::PostSyncTask(Location location, Task task,absl::Duration wait_time) {
+//     auto event = std::make_shared<absl::Notification>();
 
-    event->WaitForNotificationWithTimeout(wait_time);
-    return true;
-        
-}
+    
+// }
 
 void Thread::Run() {
     do {

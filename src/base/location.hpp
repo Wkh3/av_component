@@ -1,6 +1,8 @@
 #pragma once
+#include <ostream>
 #include <string>
 namespace component::base {
+
 
 class Location {
 public:
@@ -29,9 +31,15 @@ private:
     int line_              = -1;
 };
 
+
 #define FROM_HERE FROM_HERE_WITH_FUNCTION(__FUNCTION__)
 
 #define FROM_HERE_WITH_FUNCTION(fn) \
     ::component::base::Location(fn, __FILE__, __LINE__)
 
 } // namespace component::base
+
+inline std::ostream& operator<<(std::ostream &os,const component::base::Location &location){
+    os << location.ToString();
+    return os;
+}
