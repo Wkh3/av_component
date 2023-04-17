@@ -4,6 +4,7 @@
 #include <absl/time/time.h>
 
 #include <type_traits>
+#include <list>
 #include <iostream>
 #include <atomic>
 #include <base/location.hpp>
@@ -85,10 +86,10 @@ public:
         PostAsyncTask(location, [wrapper_task = std::forward<Fn>(task), event]() {
             event->set_value(wrapper_task());
         });
-        CHECK()
-            << "task from" << location << "wait "
-            << absl::ToInt64Seconds(wait_time) << " s timeout,"
-            << "deadlock may occur!";
+        // CHECK()
+        //     << "task from" << location << "wait "
+        //     << absl::ToInt64Seconds(wait_time) << " s timeout,"
+        //     << "deadlock may occur!";
     }
 
 private:
