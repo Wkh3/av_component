@@ -31,7 +31,7 @@ public:
         auto start_time = absl::Now();
         task();
         auto duration = absl::Now() - start_time;
-        LOG(INFO) << "task from" << location
+        LOG(INFO) << "task from" << location.ToString()
                   << "run elapsed" << absl::ToInt64Milliseconds(duration) << " ms";
     }
 
